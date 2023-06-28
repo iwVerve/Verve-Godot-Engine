@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/gimmicks/refresher.gd" id="1_lf4nr"]
+[ext_resource type="Texture2D" uid="uid://28ro345g1qci" path="res://assets/sprites/gimmicks/refresher.png" id="1_pr0pe"]
+
+[node name="Refresher" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_lf4nr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-6, -6)
+texture = ExtResource("1_pr0pe")
+centered = false
+
+[node name="RespawnTimer" type="Timer" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-6, -6)
+polygon = PackedVector2Array(9, 1, 11, 1, 11, 2, 12, 2, 12, 4, 13, 4, 13, 9, 12, 9, 12, 11, 11, 11, 11, 12, 9, 12, 9, 13, 4, 13, 4, 12, 2, 12, 2, 11, 1, 11, 1, 9, 0, 9, 0, 4, 1, 4, 1, 2, 2, 2, 2, 1, 4, 1, 4, 0, 9, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

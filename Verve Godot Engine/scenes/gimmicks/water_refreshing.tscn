@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqhov2287shet"]
+
+[ext_resource type="PackedScene" uid="uid://cjr67368fsopr" path="res://scenes/gimmicks/water.tscn" id="1_v3a0g"]
+[ext_resource type="Texture2D" uid="uid://vhg1i4o63kw8" path="res://assets/sprites/gimmicks/water_light.png" id="2_rrpw7"]
+
+[node name="WaterRefreshing" instance=ExtResource("1_v3a0g")]
+refreshing = 1
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_rrpw7")

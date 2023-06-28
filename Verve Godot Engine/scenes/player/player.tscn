@@ -1,0 +1,131 @@
+[gd_scene load_steps=21 format=3 uid="uid://ol8kcbb520da"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_8ju72"]
+[ext_resource type="Texture2D" uid="uid://d3d2k6xto588x" path="res://assets/sprites/player/fall0.png" id="2_o241j"]
+[ext_resource type="Texture2D" uid="uid://ojds0nlupsfh" path="res://assets/sprites/player/fall1.png" id="3_i5fao"]
+[ext_resource type="Texture2D" uid="uid://cwk3h3bdvautb" path="res://assets/sprites/player/idle0.png" id="4_eh4cb"]
+[ext_resource type="Texture2D" uid="uid://ctneydhq0mlh3" path="res://assets/sprites/player/idle1.png" id="5_mppeb"]
+[ext_resource type="Texture2D" uid="uid://x20o0pooblrk" path="res://assets/sprites/player/idle2.png" id="6_8fr60"]
+[ext_resource type="Texture2D" uid="uid://cnvoambqw1px1" path="res://assets/sprites/player/idle3.png" id="7_n0smj"]
+[ext_resource type="Texture2D" uid="uid://bah2iyb6c3te0" path="res://assets/sprites/player/jump0.png" id="8_2mhmb"]
+[ext_resource type="Texture2D" uid="uid://nvrhhx3x35y1" path="res://assets/sprites/player/jump1.png" id="9_loxxo"]
+[ext_resource type="Texture2D" uid="uid://cso8cqth36lmq" path="res://assets/sprites/player/run0.png" id="10_ef26x"]
+[ext_resource type="Texture2D" uid="uid://da5hxtgqsox52" path="res://assets/sprites/player/run1.png" id="11_rsvse"]
+[ext_resource type="Texture2D" uid="uid://cubyvi60iealm" path="res://assets/sprites/player/run2.png" id="12_5pm72"]
+[ext_resource type="Texture2D" uid="uid://b2kmmvdbgpbh1" path="res://assets/sprites/player/run3.png" id="13_c3mun"]
+[ext_resource type="Texture2D" uid="uid://kburblnceyg7" path="res://assets/sprites/player/slide0.png" id="14_11wwc"]
+[ext_resource type="Texture2D" uid="uid://buqbhl14wchr0" path="res://assets/sprites/player/slide1.png" id="15_woqvm"]
+[ext_resource type="AudioStream" uid="uid://c2x4tupc54ltn" path="res://assets/sounds/player/jump.wav" id="16_enocr"]
+[ext_resource type="AudioStream" uid="uid://dkkucdq2jmfrc" path="res://assets/sounds/player/air_jump.wav" id="17_xj7x6"]
+[ext_resource type="AudioStream" uid="uid://ch78ys2uuqjct" path="res://assets/sounds/player/shoot.wav" id="18_plchd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4e8pd"]
+size = Vector2(11, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_astsy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_o241j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_i5fao")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_eh4cb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mppeb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8fr60")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_n0smj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_2mhmb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_loxxo")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_ef26x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_rsvse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_5pm72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_c3mun")
+}],
+"loop": true,
+"name": &"run",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_11wwc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_woqvm")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 25.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 10
+collision_layer = 2
+script = ExtResource("1_8ju72")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_4e8pd")
+
+[node name="PlayerArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerArea"]
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_astsy")
+animation = &"idle"
+offset = Vector2(-1.5, -5.5)
+
+[node name="AudioPlayers" type="Node2D" parent="."]
+
+[node name="GroundJump" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("16_enocr")
+max_polyphony = 4
+bus = &"Sound"
+
+[node name="AirJump" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("17_xj7x6")
+max_polyphony = 4
+bus = &"Sound"
+
+[node name="Shoot" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("18_plchd")
+max_polyphony = 4
+bus = &"Sound"
